@@ -1,0 +1,6 @@
+{
+    "sketch": "traffict_lights.ino",
+    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:mega",
+    "port": "/dev/cu.usbmodem143101"
+}
