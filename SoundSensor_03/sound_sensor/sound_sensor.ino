@@ -1,7 +1,5 @@
 // Constants
-const int threashold = 200;
 const int max_number = 9999;
-const int x = 100;
 
 // Properties
 int soundCounter = 0;
@@ -53,64 +51,28 @@ void loop() {
   soundValue = digitalRead(pinMic);
   if(soundValue >= HIGH){
     if(soundCounter <= max_number){
-      Serial.print("Sound detected! \n");
+      soundCounter += 1;
+      Serial.print("SoundCounter\n");
       Serial.print(soundCounter);
       Serial.print("\n");
-      
-      int digits = digitLength(soundCounter);
-      Serial.print("digits\n");
-      Serial.print(digits);
-      Serial.print("\n");
-
-      Serial.print("number\n");
-      int number = (soundCounter/x % 10);
-      Serial.print(number);
-      Serial.print("\n");
-      
-      soundCounter += 1;
     }else{
       soundCounter = 0;
     }
-    delay(1);
   }
 
-  soundCounter = 1888;
-
   int digits = digitLength(soundCounter);
-  clean();
+  int tmp = soundCounter;
+  int i = 4;
   
-  if(digits == 1){
-    digit(4);
-    number(soundCounter);
-  }else if(digits == 2){
-     digit(4);
-     number(soundCounter%10);
-
-     digit(3);
-     number(soundCounter/10);
-     delay(1);
-  }else if(digits == 3){
-    digit(4);
-    number(soundCounter%10);
-
-    digit(3);
-    number((soundCounter/10)%10);
-
-    digit(2);
-    number((soundCounter/100)%10);
-  }else if(digits == 4){
-     digit(4);
-    number(soundCounter%10);
-
-    digit(3);
-    number((soundCounter/10)%10);
-
-    digit(2);
-    number((soundCounter/100)%10);
-
-    digit(1);
-    number((soundCounter/1000)%10);
+  while(tmp > 0){
+    clean();
     
+    digit(i);
+    number(tmp%10);
+    tmp/=10;
+    i-=1;
+    
+    delay(1.5);
   }
 }
 
